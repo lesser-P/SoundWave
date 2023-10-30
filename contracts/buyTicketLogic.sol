@@ -7,15 +7,30 @@ import "./SoundWaveNFT.sol";
 
 contract buyTicketLogic is Ownable, ReentrancyGuard {
     address private reciveEth;
+    SoundWaveNFT swNFT;
+
+    constructor(address _swNFT) {
+        swNFT = SoundWaveNFT(_swNFT);
+    }
 
     receive() external payable {}
 
     // 购买NFT
     function buyTickets(
         uint256 showId,
-        uint256 ticketNo,
+        uint256[] calldata ticketNos,
         uint256 amount
-    ) external payable {}
+    ) external payable {
+        uint256 _price = swNFT.getShowInfo(showId).price;
+        require(amount * _price == msg.value, "not enought eth");
+        require(amount == ticketNos.length, "amount and ticketNos not Match");
+
+        //在这里做质押挖矿
+
+        for (uint i = 0; i < amount; i++) {
+            swNFT.mintFromExecutor(msg.sender, showId, ticketNos[i]);
+        }
+    }
 
     function claimAll() public onlyOwner returns (uint256) {
         uint256 eth = address(this).balance;
