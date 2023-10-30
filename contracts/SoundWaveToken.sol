@@ -4,18 +4,22 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract SoundWaveToken is ERC20 {
-    address public owner;
+    mapping(address => bool) owners;
 
     constructor() ERC20("SW", "SW") {
-        owner = msg.sender;
+        owners[msg.sender] = true;
     }
 
     modifier onlyOwner() {
-        require(owner == msg.sender, "SWToken ERR : msg.sender is not owner");
+        require(owners[msg.sender], "SWToken ERR : msg.sender is not owner");
         _;
     }
 
     function mint(address to, uint256 amount) external onlyOwner {
         _mint(to, amount);
+    }
+
+    function setOwner(address to, bool flag) public onlyOwner {
+        owners[to] = flag;
     }
 }
