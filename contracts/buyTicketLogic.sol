@@ -3,6 +3,9 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@sushiswap/core/contracts/uniswapv2/interfaces/IUniswapV2Factory.sol";
+import "@sushiswap/core/contracts/uniswapv2/interfaces/IUniswapV2Router02.sol";
+import "@sushiswap/core/contracts/uniswapv2/interfaces/IUniswapV2Pair.sol";
 import "./SoundWaveNFT.sol";
 
 contract buyTicketLogic is Ownable, ReentrancyGuard {

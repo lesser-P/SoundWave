@@ -54,7 +54,7 @@ contract SoundWaveNFT is ERC721URIStorage, Ownable, ReentrancyGuard {
         uint256 tickNo;
     }
 
-    constructor(address token) ERC721("SWNFT", "SWNFT") {
+    constructor(address payable token) ERC721("SWNFT", "SWNFT") {
         soundWaveToken = SoundWaveToken(token);
         admin = msg.sender;
     }

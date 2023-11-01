@@ -6,8 +6,14 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract SoundWaveToken is ERC20 {
     mapping(address => bool) owners;
 
-    constructor() ERC20("SW", "SW") {
+    constructor() payable ERC20("SW", "SW") {
         owners[msg.sender] = true;
+    }
+
+    event GetEth(address indexed account, uint256 indexed amount);
+
+    receive() external payable {
+        emit GetEth(msg.sender, msg.value);
     }
 
     modifier onlyOwner() {
