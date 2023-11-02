@@ -13,13 +13,17 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   networks: {
+    localhost: {
+      url: 'http://127.0.0.1:8545',
+      accounts: ['0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'],
+      live: true,
+      gas: 25000000000,
+    },
     sepolia: {
       url: 'https://sepolia.infura.io/v3/200c1554096d4b7aa08be1cba45e9e19',
       accounts: ['6eb736ab4da6fc7139a88d710eb8c0db47d4f94c2e6e4311ea2ef17c8743d325'],
       live: true,
       saveDeployments: true,
-      tags: ['staging'],
-      gas: 50000000,
       timeout: 10000000,
     },
     mubai: {
@@ -46,6 +50,12 @@ module.exports = {
   //   apiKey: APIKEY,
   // },
   solidity: {
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 1,
+      },
+    },
     compilers: [
       {
         version: '0.8.7',

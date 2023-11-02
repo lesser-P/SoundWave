@@ -19,19 +19,18 @@ async function main() {
   await tx.wait()
   const pairAddr = await pancakeFContract.getPair(
     wethContract.target,
-    soundWaveTokenContract.target,
-    { gasLimit: '5000000000000' }
+    soundWaveTokenContract.target
   )
   console.log('pairAddr', pairAddr)
   const init_code = await pancakeFContract.INIT_CODE_PAIR_HASH()
   console.log('initCode', init_code)
-  //注意是否需要修改Router中的hex
-  const routerFactory = await ethers.getContractFactory('PancakeRouter')
-  const router = await routerFactory.deploy(pancakeFContract.target, wethContract.target, {
-    gasLimit: '10000000000000000',
-  })
-  await router.waitForDeployment()
-  console.log('router:', router.target)
+  //   //注意是否需要修改Router中的hex
+  //   const routerFactory = await ethers.getContractFactory('PancakeRouter')
+  //   const router = await routerFactory.deploy(pancakeFContract.target, wethContract.target, {
+  //     gasLimit: 3000000000,
+  //   })
+  //   await router.waitForDeployment()
+  //   console.log('router:', router.target)
 }
 
 main()
